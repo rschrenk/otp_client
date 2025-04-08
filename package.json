@@ -21,6 +21,9 @@
     "electron": "^35.1.4"
   },
   "dependencies": {
-    "jquery": "^3.7.1"
+    "bootstrap": "^5.3.5",
+    "crypto-js": "^4.2.0",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1"
   }
 }
