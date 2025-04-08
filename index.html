@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>OTP Client</title>
+    <meta charset="UTF-8" />
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'unsafe-inline'"
+    />
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'unsafe-inline'"
+    />
+    <script>
+      const defaultHeaders = new Headers({
+        "User-Agent": "Simple OTP Manager Browser Extension",
+        "OCS-APIRequest": "true"
+      });
+      let requestHeaders = defaultHeaders;
+      
+      function load_accounts() {
+        let server = $('#server').value;
+        let username = $('#username').value;
+        let password = $('#password').value;
+        try {
+          const response = $.ajax({
+              url: server+ "/index.php/apps/otpmanager/accounts",
+              username: username,
+              password: password,
+              data: {
+                credentials: "omit"
+              }
+          }).success(function(result,status,xhr) {
+              console.log(result,status,xhr);
+          });
+          /*
+          const jsonData = await response.json();
+          if (response.status === 401) {
+              set_result("Not authenticated, please connect again to login.");
+              return false;
+          } else if (!response.ok || !jsonData.accounts) {
+              set_result("Failed to load accounts at: "+ server+ "/index.php/apps/otpmanager/accounts");
+              return false;
+          }
+          set_result(JSON.stringify(jsonData.accounts));
+          */
+        } catch {
+            set_result("Error loading: " + server+ "/index.php/apps/otpmanager/accounts");
+            return false;
+        }
+        
+      }
+      function set_result(result) {
+        $('#accounts').setHTMLUnsafe(result);
+      }
+    </script>
+  </head>
+  <body>
+    Server: <input type="text" name="server" id="server" value="" /><br />
+    Username: <input type="text" name="username" id="username" value="" /><br />
+    Password: <input type="password" name="password" id="password" value="" /><br />
+    <a href="#" onclick="load_accounts(); return false;">Load</a><br />
+    <hr>
+    <pre id="accounts"></pre>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "otp_client",
+  "version": "1.0.0",
+  "description": "Client for the TOTP-service \"otp-manager\" in Nextcloud",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rschrenk/otp_client.git"
+  },
+  "author": "Robert Schrenk",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/rschrenk/otp_client/issues"
+  },
+  "homepage": "https://github.com/rschrenk/otp_client#readme",
+  "devDependencies": {
+    "electron": "^35.1.4"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1"
+  }
+}
