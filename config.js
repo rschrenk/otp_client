@@ -1,5 +1,6 @@
 const CONFIG = {
     data: {
+        'iv': '',
         'otppass': '',
         'pass': '',
         'server': '',
@@ -35,6 +36,19 @@ const CONFIG = {
         });
     },
     /**
+     * Set a certain configuration value in the local object.
+     * ATTENTION: Does NOT store to localStorage!
+     * @param k
+     * @param v
+     */
+    set: function(k, v) {
+        if (typeof this.data[k] === 'undefined') {
+            console.log('Unknown configuration value', k);
+        } else {
+            this.data[k] = v;
+        }
+    },
+    /**
      * Store the local object to the localStorage.
      * @param {DOMElement} sender the DOMElement that initiated the store.
      */
@@ -48,5 +62,6 @@ const CONFIG = {
         setTimeout(function() {
             $(sender).css('color', 'unset');
         }, 500);
+        CONNECTOR.load_iv();
     }
 }

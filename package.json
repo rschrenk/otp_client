@@ -24,6 +24,7 @@
     "bootstrap": "^5.3.5",
     "crypto-js": "^4.2.0",
     "jquery": "^3.7.1",
+    "otpauth": "^9.4.0",
     "popper.js": "^1.16.1"
   }
 }

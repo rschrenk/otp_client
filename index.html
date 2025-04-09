@@ -7,16 +7,21 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
-    <script>const $ = require('jquery');</script>
-    <script>const CryptoJS = require("crypto-js");</script>
-    <script>require('popper.js');</script>
-    <script>require('bootstrap');</script>
     <script src="config.js"></script>
     <script src="connector.js"></script>
+    <script src="otpui.js"></script>
     <script>
+      require('bootstrap');
+      const OTPAuth = require('otpauth');
+      const CryptoJS = require("crypto-js");
+      const $ = require('jquery');
+      require('popper.js');
+
       window.onload = function() {
         CONFIG.load();
-        CONNECTOR.load_iv();
+        if (typeof CONFIG.get('iv') === 'undefined' || CONFIG.get('iv') == '') {
+          CONNECTOR.load_iv();
+        }
       }
       function set_result(result) {
         $('#accounts').html(result);
@@ -28,7 +33,7 @@
     Username: <input type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" /><br />
     Password: <input type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" /><br />
     OTP-Password: <input type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" /><br />
-    <a href="#" onclick="CONFIG.store(this); return false;">Store</a><br />
+    <a href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
     <hr>
     <a href="#" onclick="CONNECTOR.load_accounts(); return false;">Get Codes</a><br />
     <div id="accounts"></div>

@@ -8,6 +8,7 @@ const CONNECTOR = {
         };
     },
     load_accounts: function() {
+        console.log('CONNECTOR.load_accounts()');
         let headers = this.headers();
         let server = CONFIG.get('server');
         try {
@@ -20,10 +21,9 @@ const CONNECTOR = {
             }).done(function(data) {
                 data.accounts.forEach(function(account){
                     console.log(account);
-                    account.currentotp = getOtpFromAccount(account);
+                    account.currentotp = CONNECTOR.getOtpFromAccount(account);
                 });
-                console.log(data);
-                set_result(JSON.stringify(data));
+                OTPUI.print_accounts(data.accounts);
             });
         } catch {
             set_result("Error loading: " + server + "/index.php/apps/otpmanager/accounts");
@@ -31,33 +31,37 @@ const CONNECTOR = {
         }
     },
     load_iv: function() {
+        console.log('CONNECTOR.load_iv()');
         let headers = this.headers();
         let otppass = CONFIG.get('otppass');
         let server = CONFIG.get('server');
         headers['Content-Type'] = "application/json";
-        console.log(headers);
         try {
             $.ajax({
                 method: 'POST',
                 url: server + "/ocs/v2.php/apps/otpmanager/password/check",
-                data: {
-                    password: otppass,
-                    credentials: "omit"
-                },
+                data: JSON.stringify({password: otppass}),
                 headers: headers
             }).done(function(data) {
-                console.log(data);
+                if (typeof data.iv === "undefined") {
+                    alert('Initialization Vector could not be loaded. Cannot generate OTP-codes!');
+                } else {
+                    CONFIG.set('iv', data.iv);
+                    CONFIG.store();
+                }
             });
         } catch {
             set_result("Error loading: " + server + "/ocs/v2.php/apps/otpmanager/password/check");
             return false;
         }
     },
+    getAlgorithm: function(n) {
+        return ["SHA1", "SHA256", "SHA512"][n];
+    },
     getOtpFromAccount: function(account) {
-        const passHash = CryptoJS.SHA256(window.password).toString()
-
+        const passHash = CryptoJS.SHA256(CONFIG.get('otppass')).toString();
         const key = CryptoJS.enc.Hex.parse(passHash);
-        const parsedIv = CryptoJS.enc.Hex.parse(window.accountIV);
+        const parsedIv = CryptoJS.enc.Hex.parse(CONFIG.get('iv'));
         const dec = CryptoJS.AES.decrypt(account.secret, key, { iv: parsedIv });
 
         const secret = dec.toString(CryptoJS.enc.Utf8);
@@ -66,7 +70,7 @@ const CONNECTOR = {
             const totp = new OTPAuth.TOTP({
                 issuer: account.issuer,
                 label: account.name,
-                algorithm: getAlgorithm(account.algorithm),
+                algorithm: this.getAlgorithm(account.algorithm),
                 digits: account.digits,
                 period: account.period,
                 secret: secret,
@@ -79,7 +83,7 @@ const CONNECTOR = {
                 const hotp = new OTPAuth.HOTP({
                     issuer: account.issuer,
                     label: account.name,
-                    algorithm: getAlgorithm(account.algorithm),
+                    algorithm: this.getAlgorithm(account.algorithm),
                     digits: account.digits,
                     counter: account.counter,
                     secret: secret,
