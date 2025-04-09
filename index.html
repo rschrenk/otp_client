@@ -5,9 +5,10 @@
     <title>OTP Client</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline'" />
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' 'unsafe-inline' https:; script-src 'self' 'unsafe-inline'" />
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="node_modules/font-awesome/css/font-awesome.css" />
     <script src="config.js"></script>
     <script src="connector.js"></script>
     <script src="otpui.js"></script>
@@ -26,25 +27,48 @@
         setInterval(function() { CONNECTOR.reload_counter(); }, 1000);
       }
     </script>
+    <style type="text/css">
+      .hidden { display: none; }
+      .header {
+        border-bottom: 1px solid darkgray;
+        margin-bottom: 10px;
+      }
+      .header a {
+        float: right;
+      }
+    </style>
   </head>
   <body>
-    <details>
-      <summary>Configuration</summary>
+    <div class="hidden" id="config" role="page">
+      <div class="header" role="header">
+        <a class="btn btn-secondary" href="#" onclick="OTPUI.toggle_page('codes');">
+          <i class="fa fa-code"></i>
+          <span class="sr-only">Configuration</span>
+        </a>
+      </div>
       Server: <input type="text" name="server" id="config_server" value="" onchange="CONFIG.change();" /><br />
       Username: <input type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" /><br />
       Password: <input type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" /><br />
       OTP-Password: <input type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" /><br />
-      <a href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
-    </details>
-    <div class="row">
-      <div class="col-md-6">
-        <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Manual refresh</a>
+      <a class="btn btn-primary" href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
+    </div>
+    <div id="codes" role="page">
+      <div class="header" role="header">
+        <a class="btn btn-secondary" href="#" onclick="OTPUI.toggle_page('config');">
+          <i class="fa fa-gears"></i>
+          <span class="sr-only">Configuration</span>
+        </a>
+        <div class="row">
+          <div class="col-6">
+            <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Manual refresh</a>
+          </div>
+          <div class="col-6" style="padding-top: 5px;">
+            Refresh in <span id="reload-counter" data-period="30">0</span>s
+          </div>
+        </div>
       </div>
-      <div class="col-md-6">
-        Refresh automatically in <span id="reload-counter" data-period="30">0</span> seconds.
-      </div>
+      <div id="accounts"></div>
     </div>
     <div id="main-alert" class="alert" role="alert"></div>
-    <div id="accounts"></div>
   </body>
 </html>

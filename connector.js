@@ -52,6 +52,7 @@ const CONNECTOR = {
             });
         } catch {
             OTPUI.set_result("Error loading: " + server + "/ocs/v2.php/apps/otpmanager/password/check");
+            OTPUI.toggle_page('config');
             return false;
         }
     },

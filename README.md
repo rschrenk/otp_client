@@ -13,7 +13,7 @@ Once all dependencies are loaded, start the app using the command
 `npm start`
 
 ## version history
-### 1.0.1
+### 1.0.1 - 1.0.2
 
 improved ui with bootstrap.
 

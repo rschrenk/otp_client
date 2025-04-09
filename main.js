@@ -10,7 +10,7 @@ const createWindow = () => {
     }
   })
   // Open Chrome debugging
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
   // Open viewer
   win.loadFile('index.html')
   BrowserWindow.$ = BrowserWindow.jQuery = require('jquery')

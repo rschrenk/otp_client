@@ -25,5 +25,9 @@ const OTPUI = {
         }
         // Remove all other classes and set only the desired alerttype.
         $('#main-alert').set('class', 'alert').addClass('alert-' + alerttype).html(result);
+    },
+    toggle_page: function(pagetoopen) {
+        $('[role=page]').addClass('hidden');
+        $('#' + pagetoopen).removeClass('hidden');
     }
 }
