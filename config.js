@@ -13,7 +13,7 @@ const CONFIG = {
         let SELF = this;
         Object.entries(this.data).forEach(function(a) {
             let k = a[0];
-            SELF.data[k] = $('#config_' + k).val();
+            SELF.set(k, $('#config_' + k).val());
         });
     },
     /**

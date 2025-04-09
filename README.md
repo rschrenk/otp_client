@@ -1,9 +1,23 @@
 # otp_client
 
-This is a client written in Electron to be used with a Nextcloud instance and the plugin "[OTP-Manager](https://apps.nextcloud.com/apps/otpmanager)"
+This is a client written in Electron to be used with a Nextcloud instance and the plugin [OTP-Manager](https://apps.nextcloud.com/apps/otpmanager).
 
-# version history
-## 1.0.0
+## usage
+
+You need to have [npm](https://docs.npmjs.com/) installed on your system. All dependencies can be loaded automatically using the command
+
+`npm install`
+
+Once all dependencies are loaded, start the app using the command
+
+`npm start`
+
+## version history
+### 1.0.1
+
+improved ui with bootstrap.
+
+### 1.0.0
 
 Basic client that allows login with username / password and setting the password of the OTP-Manager.
 Credentials are stored in the localStorage-Object.

@@ -26,7 +26,7 @@ const CONNECTOR = {
                 OTPUI.print_accounts(data.accounts);
             });
         } catch {
-            set_result("Error loading: " + server + "/index.php/apps/otpmanager/accounts");
+            OTPUI.set_result("Error loading: " + server + "/index.php/apps/otpmanager/accounts");
             return false;
         }
     },
@@ -44,14 +44,14 @@ const CONNECTOR = {
                 headers: headers
             }).done(function(data) {
                 if (typeof data.iv === "undefined") {
-                    alert('Initialization Vector could not be loaded. Cannot generate OTP-codes!');
+                    OTPUI.set_result('Initialization Vector could not be loaded. Cannot generate OTP-codes!');
                 } else {
                     CONFIG.set('iv', data.iv);
                     CONFIG.store();
                 }
             });
         } catch {
-            set_result("Error loading: " + server + "/ocs/v2.php/apps/otpmanager/password/check");
+            OTPUI.set_result("Error loading: " + server + "/ocs/v2.php/apps/otpmanager/password/check");
             return false;
         }
     },
@@ -91,5 +91,14 @@ const CONNECTOR = {
                 return hotp.generate();
             }
         }
+    },
+    reload_counter: function() {
+        let counter = parseInt($('#reload-counter').html())-1;
+        let period = parseInt($('#reload-counter').data('period'));
+        if (counter <= 0) {
+            counter = period;
+            CONNECTOR.load_accounts();
+        }
+        $('#reload-counter').html(counter);
     }
 }

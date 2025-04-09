@@ -4,9 +4,10 @@
   <head>
     <title>OTP Client</title>
     <meta charset="UTF-8" />
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self' https:; script-src 'self' 'unsafe-inline'" />
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
     <script src="config.js"></script>
     <script src="connector.js"></script>
     <script src="otpui.js"></script>
@@ -19,23 +20,31 @@
 
       window.onload = function() {
         CONFIG.load();
-        if (typeof CONFIG.get('iv') === 'undefined' || CONFIG.get('iv') == '') {
-          CONNECTOR.load_iv();
-        }
-      }
-      function set_result(result) {
-        $('#accounts').html(result);
+        // Reload IV and accounts on each start.
+        CONNECTOR.load_iv();
+        // Reload each 30s automatically
+        setInterval(function() { CONNECTOR.reload_counter(); }, 1000);
       }
     </script>
   </head>
   <body>
-    Server: <input type="text" name="server" id="config_server" value="" onchange="CONFIG.change();" /><br />
-    Username: <input type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" /><br />
-    Password: <input type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" /><br />
-    OTP-Password: <input type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" /><br />
-    <a href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
-    <hr>
-    <a href="#" onclick="CONNECTOR.load_accounts(); return false;">Get Codes</a><br />
+    <details>
+      <summary>Configuration</summary>
+      Server: <input type="text" name="server" id="config_server" value="" onchange="CONFIG.change();" /><br />
+      Username: <input type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" /><br />
+      Password: <input type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" /><br />
+      OTP-Password: <input type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" /><br />
+      <a href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
+    </details>
+    <div class="row">
+      <div class="col-md-6">
+        <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Manual refresh</a>
+      </div>
+      <div class="col-md-6">
+        Refresh automatically in <span id="reload-counter" data-period="30">0</span> seconds.
+      </div>
+    </div>
+    <div id="main-alert" class="alert" role="alert"></div>
     <div id="accounts"></div>
   </body>
 </html>
