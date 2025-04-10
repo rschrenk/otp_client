@@ -1,0 +1,21 @@
+CACHE MANIFEST
+# 2025041003
+
+CACHE:
+/vendor/bootstrap/4.0.0-dist/css/bootstrap.css
+/vendor/bootstrap/4.0.0-dist/js/bootstrap.js
+/vendor/crypto-js/4.0.0/crypto.js
+/vendor/fontawesome/free-6.7.2-web/css/all.css
+/vendor/jquery/jquery-3.7.1.min.js
+/vendor/otpauth/9.4.0/otpauth.umd.min.js
+
+NETWORK:
+/index.html
+/js/config.js
+/js/connector.js
+/js/main.js
+/js/otpui.js
+*
+
+FALLBACK:
+/ /offline.html
