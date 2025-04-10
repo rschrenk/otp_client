@@ -13,6 +13,15 @@ Once all dependencies are loaded, start the app using the command
 `npm start`
 
 ## version history
+
+### 1.0.4
+
+using electron to build deb package for linux
+
+### 1.0.3
+
+as standalone HTML5 web app
+
 ### 1.0.1 - 1.0.2
 
 improved ui with bootstrap.
