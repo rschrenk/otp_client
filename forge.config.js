@@ -4,7 +4,7 @@ const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 module.exports = {
   packagerConfig: {
     asar: true,
-    executableName: "OTP Client",
+    executableName: "otp_client",
     icon: '/src/pix/icon-512',
     name: 'OTP Client',
     appCategoryType: 'public.app-category.utilities',

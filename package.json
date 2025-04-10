@@ -12,7 +12,7 @@
     "lint": "echo \"No linting configured\""
   },
   "electronPackagerConfig": {
-    "executableName": "OTP Client"
+    "executableName": "otp_client"
   },
   "keywords": [],
   "author": {
