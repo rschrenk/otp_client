@@ -23,7 +23,7 @@
         // Load data that may be determined offline.
         CONFIG.load();
         CONNECTOR.getOtpFromAccounts();
-        // Reload each 30s automatically
+        // Re-generate OTP-codes based on accounts period and reload all accounts after some time automatically
         setInterval(function() { CONNECTOR.reload_counter(); }, 1000);
       }
     </script>
@@ -101,7 +101,7 @@
       <div class="page-content">
         <div id="accounts"></div>
         <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Reload all accounts</a>
-        <span class="hidden" id="reload-counter" data-period="30">0</span>
+        <span class="hidden" id="reload-counter" data-period="600">0</span>
       </div>
     </div>
     <div id="main-alert" class="alert" role="alert"></div>

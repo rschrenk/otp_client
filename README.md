@@ -21,6 +21,10 @@ For building the Windows executable on a linux machine, mono and wine must be in
 
 ## version history
 
+### 1.0.8
+- fix makers to ignore the dist-folder
+- increase auto reloading of all accounts to 10 minutes
+
 ### 1.0.7
 - transparent background for icon
 - close to systray

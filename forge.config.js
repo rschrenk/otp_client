@@ -6,7 +6,9 @@ module.exports = {
     {
       name: '@electron-forge/maker-deb',
       config: {
-        icon: 'src/pix/icon-512.png'
+        icon: 'src/pix/icon-512.png',
+        maintainer: 'Robert Schrenk',
+        homepage: 'https://www.github.com/rschrenk/otp-client'
       },
     },
     {
@@ -23,7 +25,7 @@ module.exports = {
     {
       name: '@electron-forge/maker-squirrel',
       config: {
-        "name": "otp_client"
+        name: "otp_client"
       },
     },
     {
@@ -37,6 +39,7 @@ module.exports = {
     icon: '/src/pix/icon-512',
     name: 'OTP Client',
     appCategoryType: 'public.app-category.utilities',
+    ignore: ["dist"]
   },
   plugins: [
     {
