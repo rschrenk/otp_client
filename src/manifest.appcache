@@ -1,7 +1,14 @@
 CACHE MANIFEST
-# 2025041003
+# 2025041101
 
 CACHE:
+/index.html
+/js/config.js
+/js/connector.js
+/js/main.js
+/js/otpui.js
+/pix/icon-192.png
+/pix/icon-512.png
 /vendor/bootstrap/4.0.0-dist/css/bootstrap.css
 /vendor/bootstrap/4.0.0-dist/js/bootstrap.js
 /vendor/crypto-js/4.0.0/crypto.js
@@ -10,11 +17,6 @@ CACHE:
 /vendor/otpauth/9.4.0/otpauth.umd.min.js
 
 NETWORK:
-/index.html
-/js/config.js
-/js/connector.js
-/js/main.js
-/js/otpui.js
 *
 
 FALLBACK:

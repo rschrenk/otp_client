@@ -19,11 +19,11 @@ const CONNECTOR = {
                 },
                 headers: headers
             }).done(function(data) {
-                data.accounts.forEach(function(account){
-                    console.log(account);
-                    account.currentotp = CONNECTOR.getOtpFromAccount(account);
-                });
-                OTPUI.print_accounts(data.accounts);
+                if (typeof data.accounts !== 'undefined') {
+                    CONFIG.set('accounts', data.accounts);
+                    CONFIG.store();
+                    CONNECTOR.getOtpFromAccounts();
+                }
             });
         } catch {
             OTPUI.set_result("Error loading: " + server + "/index.php/apps/otpmanager/accounts");
@@ -48,6 +48,8 @@ const CONNECTOR = {
                 } else {
                     CONFIG.set('iv', data.iv);
                     CONFIG.store();
+                    // Try to generate codes for locally available accounts.
+                    CONNECTOR.getOtpFromAccounts();
                 }
             });
         } catch {
@@ -58,6 +60,26 @@ const CONNECTOR = {
     },
     getAlgorithm: function(n) {
         return ["SHA1", "SHA256", "SHA512"][n];
+    },
+    /**
+     * Get all account from configuration and calculate the OTP.
+     * Update the interface afterwards.
+     */
+    getOtpFromAccounts: function() {
+        // Check if there is an initialization vector
+        let iv = CONFIG.get('iv');
+        if (typeof iv === 'undefined') {
+            // Load the iv before!
+            CONNECTOR.load_iv();
+        } else {
+            let accounts = CONFIG.get('accounts');
+            if (Array.isArray(accounts)) {
+                accounts.forEach(function (account) {
+                    account.currentotp = CONNECTOR.getOtpFromAccount(account);
+                });
+                OTPUI.print_accounts(accounts);
+            }
+        }
     },
     getOtpFromAccount: function(account) {
         const passHash = CryptoJS.SHA256(CONFIG.get('otppass')).toString();
@@ -100,5 +122,27 @@ const CONNECTOR = {
             CONNECTOR.load_accounts();
         }
         $('#reload-counter').html(counter);
+        // Re-generate single otps.
+        $('.item-counter').each(function() {
+            let itemcounter = this;
+            let accountpane = $(itemcounter).closest('.account');
+            let counter = parseInt($(itemcounter).html())-1;
+            let period = parseInt($(accountpane).find('.item-period').html());
+            if (counter <= 0) {
+                counter = period;
+                let accounts = CONFIG.get('accounts');
+                try {
+                    let index = parseInt($(accountpane).find('.item-index').html());
+                    let acc = accounts[index];
+                    accounts[index].currentotp = CONNECTOR.getOtpFromAccount(acc);
+                    $(accountpane).find('.otpcode').html(accounts[index].currentotp);
+                    CONFIG.store();
+                } catch (e) {
+                    OTPUI.set_result(e.message, 'warning');
+                    console.error(e);
+                }
+            }
+            $(itemcounter).html(counter);
+        });
     }
 }

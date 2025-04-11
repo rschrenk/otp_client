@@ -1,5 +1,6 @@
 const CONFIG = {
     data: {
+        'accounts': [],
         'iv': '',
         'otppass': '',
         'pass': '',
@@ -31,7 +32,11 @@ const CONFIG = {
         let SELF = this;
         Object.entries(this.data).forEach(function(a) {
             let k = a[0];
-            SELF.data[k] = window.localStorage.getItem(k);
+            try {
+                SELF.data[k] = JSON.parse(window.localStorage.getItem(k));
+            } catch(e) {
+                SELF.data[k] = window.localStorage.getItem(k);
+            }
             $('#config_' + k).val(SELF.data[k]);
         });
     },
@@ -54,7 +59,7 @@ const CONFIG = {
         let SELF = this;
         Object.entries(this.data).forEach(function(a) {
             let k = a[0];
-            window.localStorage.setItem(k, SELF.data[k]);
+            window.localStorage.setItem(k, JSON.stringify(SELF.data[k]));
         });
         setTimeout(function() {
             $(sender).css('color', 'unset');

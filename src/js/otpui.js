@@ -22,13 +22,22 @@ const OTPUI = {
     print_accounts: function(accounts) {
         let container = $('#accounts').empty();
         let group = $('<div>').addClass('list-group');
-        accounts.forEach(function(account) {
-            let a = $('<a>').attr('href', '#').attr('onclick', 'OTPUI.copy_to_clipboard(this);').addClass('alert list-item');
+        let usessystray =
+        accounts.forEach(function(account, index) {
+            // Update app-pane
+            let a = $('<a>')
+                .attr('href', '#')
+                .attr('onclick', 'OTPUI.copy_to_clipboard(this);')
+                .addClass('account alert list-item');
             let item = $('<div>').addClass('d-flex w-100 justify-content-between');
+            item.append($('<p>').addClass('item-index hidden').html(index));
+            item.append($('<p>').addClass('item-counter hidden').html(account.period));
+            item.append($('<p>').addClass('item-period hidden').html(account.period));
             item.append($('<p>').addClass('mb-1 issuer').html(account.issuer));
             item.append($('<small>').addClass('otpcode').html(account.currentotp));
             a.append(item);
             group.append(a);
+            // update systray
         });
         container.append(group);
     },
@@ -43,7 +52,7 @@ const OTPUI = {
             alerttype = 'warning';
         }
         // Remove all other classes and set only the desired alerttype.
-        $('#main-alert').set('class', 'alert').addClass('alert-' + alerttype).html(result);
+        $('#main-alert').addClass('alert-' + alerttype).html(result);
     },
     toggle_page: function(pagetoopen) {
         $('[role=page]').addClass('hidden');

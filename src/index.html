@@ -17,54 +17,89 @@
     <script src="vendor/otpauth/9.4.0/otpauth.umd.min.js"></script>
     <script>
       window.onload = function() {
+        // Load data that may be determined offline.
         CONFIG.load();
-        // Reload IV and accounts on each start.
-        CONNECTOR.load_iv();
+        CONNECTOR.getOtpFromAccounts();
         // Reload each 30s automatically
         setInterval(function() { CONNECTOR.reload_counter(); }, 1000);
       }
     </script>
-    <style type="text/css">
+    <style>
+      [role=page] { margin: 5px; }
+      h1 { font-size: 1.5em; }
       .hidden { display: none; }
-      .header {
-        border-bottom: 1px solid darkgray;
-        margin-bottom: 10px;
+      .page-content {
+
       }
-      .header a {
+      .page-header {
+        border-bottom: 1px solid darkgray;
+        display: block;
+        margin-bottom: 10px;
+        min-width: 45px;
+      }
+      .page-header .mainbutton {
         float: right;
       }
     </style>
   </head>
   <body>
     <div class="hidden" id="config" role="page">
-      <div class="header" role="header">
-        <a class="btn btn-secondary" href="#" onclick="OTPUI.toggle_page('codes');">
+      <div class="page-header" role="header">
+        <a class="btn btn-secondary mainbutton" href="#" onclick="OTPUI.toggle_page('codes');">
           <i class="fa fa-code"></i>
           <span class="sr-only">Configuration</span>
         </a>
+        <h1>Configuration</h1>
       </div>
-      Server: <input type="text" name="server" id="config_server" value="" onchange="CONFIG.change();" /><br />
-      Username: <input type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" /><br />
-      Password: <input type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" /><br />
-      OTP-Password: <input type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" /><br />
-      <a class="btn btn-primary" href="#" onclick="CONFIG.store(this); return false;">Store Configuration</a><br />
+      <div class="page-content">
+        <div class="row">
+          <div class="col-4">
+            Server:
+          </div>
+          <div class="col-8">
+            <input class="form-control input-lg" type="text" name="server" id="config_server" value="" onchange="CONFIG.change();" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Username:
+          </div>
+          <div class="col-8">
+            <input class="form-control input-lg" type="text" name="user" id="config_user" value="" onchange="CONFIG.change();" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            Password:
+          </div>
+          <div class="col-8">
+            <input class="form-control input-lg" type="password" name="pass" id="config_pass" value="" onchange="CONFIG.change();" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-4">
+            OTP-Password:
+          </div>
+          <div class="col-8">
+            <input class="form-control input-lg" type="password" name="otppass" id="config_otppass" value="" onchange="CONFIG.change();" />
+          </div>
+        </div>
+        <a class="btn btn-primary btn-block" style="margin-top: 5px;" href="#" onclick="CONFIG.store(this); return false;">Store</a>
+      </div>
     </div>
     <div id="codes" role="page">
-      <div class="header" role="header">
-        <a class="btn btn-secondary" href="#" onclick="OTPUI.toggle_page('config');">
+      <div class="page-header" role="header">
+        <a class="btn btn-secondary mainbutton" href="#" onclick="OTPUI.toggle_page('config');">
           <i class="fa fa-gears"></i>
           <span class="sr-only">Configuration</span>
         </a>
-        <div class="row">
-          <div class="col-6">
-            <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Manual refresh</a>
-          </div>
-          <div class="col-6" style="padding-top: 5px;">
-            Refresh in <span id="reload-counter" data-period="30">0</span>s
-          </div>
-        </div>
+        <h1>Accounts</h1>
       </div>
-      <div id="accounts"></div>
+      <div class="page-content">
+        <div id="accounts"></div>
+        <a href="#" class="btn btn-block btn-primary" onclick="$('#reload-counter').html(0); return false;">Reload all accounts</a>
+        <span class="hidden" id="reload-counter" data-period="30">0</span>
+      </div>
     </div>
     <div id="main-alert" class="alert" role="alert"></div>
   </body>

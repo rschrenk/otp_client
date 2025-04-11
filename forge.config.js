@@ -2,6 +2,35 @@ const { FusesPlugin } = require('@electron-forge/plugin-fuses');
 const { FuseV1Options, FuseVersion } = require('@electron/fuses');
 
 module.exports = {
+  makers: [
+    {
+      name: '@electron-forge/maker-deb',
+      config: {
+        icon: 'src/pix/icon-512.png'
+      },
+    },
+    {
+      name: "@electron-forge/maker-dmg",
+      config: {
+        background: "/src/pix/icon-512.png",
+        format: "ULFO"
+      }
+    },
+    {
+      name: '@electron-forge/maker-flatpak',
+      config: { }
+    },
+    {
+      name: '@electron-forge/maker-squirrel',
+      config: {
+        "name": "otp_client"
+      },
+    },
+    {
+      name: '@electron-forge/maker-zip',
+      platforms: ['darwin'],
+    }
+  ],
   packagerConfig: {
     asar: true,
     executableName: "otp_client",
@@ -9,23 +38,6 @@ module.exports = {
     name: 'OTP Client',
     appCategoryType: 'public.app-category.utilities',
   },
-  rebuildConfig: {},
-  makers: [
-    {
-      name: '@electron-forge/maker-squirrel',
-      config: {},
-    },
-    {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
-    },
-    {
-      name: '@electron-forge/maker-deb',
-      config: {
-        icon: 'src/pix/icon-512.png'
-      },
-    }
-  ],
   plugins: [
     {
       name: '@electron-forge/plugin-auto-unpack-natives',
@@ -43,4 +55,17 @@ module.exports = {
       [FuseV1Options.OnlyLoadAppFromAsar]: true,
     }),
   ],
+  publishers: [
+    {
+      name: '@electron-forge/publisher-github',
+      config: {
+        generateReleaseNotes: true,
+        repository: {
+          owner: 'rschrenk',
+          name: 'otp_client'
+        }
+      }
+    }
+  ],
+  rebuildConfig: {}
 };
