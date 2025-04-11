@@ -90,3 +90,6 @@ typings/
 
 # Electron-Forge
 out/
+
+# Exclude the dist folder as long as binaries are too big for GitHub
+dist/
