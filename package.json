@@ -1,9 +1,8 @@
 {
   "name": "otp_client",
   "productName": "otp_client",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "OTP Client that uses Nextcloud with installed OTPManager plugin",
-  "homepage": "https://www.github.com/rschrenk/otp-client",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",

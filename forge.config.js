@@ -8,7 +8,7 @@ module.exports = {
       config: {
         icon: 'src/pix/icon-512.png',
         maintainer: 'Robert Schrenk',
-        homepage: 'https://www.github.com/rschrenk/otp-client'
+        homepage: 'https://www.github.com/rschrenk/otp_client'
       },
     },
     {
@@ -39,7 +39,7 @@ module.exports = {
     icon: '/src/pix/icon-512',
     name: 'OTP Client',
     appCategoryType: 'public.app-category.utilities',
-    ignore: ["dist"]
+    ignore: ["/dist"]
   },
   plugins: [
     {
