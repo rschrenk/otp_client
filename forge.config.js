@@ -39,7 +39,6 @@ module.exports = {
     icon: '/src/pix/icon-512',
     name: 'OTP Client',
     appCategoryType: 'public.app-category.utilities',
-    ignore: ["/dist"]
   },
   plugins: [
     {

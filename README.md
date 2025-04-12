@@ -1,8 +1,31 @@
-# otp_client
+# OTP client
 
 This is a client written in Electron to be used with a Nextcloud instance and the plugin [OTP-Manager](https://apps.nextcloud.com/apps/otpmanager).
 
-## usage
+## Usage
+
+### Installation on Desktop
+
+Currently the client ships with installation packages for APT (deb-package) and Flatpak.
+You may use the Client on other operating systems as well (refer to section "Development").
+Building executables for Windows and MacOS was prepared, but did not work yet.
+
+### Installation as WebApp
+
+This client can be used as standalone HTML5 Webapp and is fully offline capable too. However,
+the Nextcloud plugin "[OTP Manager](https://apps.nextcloud.com/apps/otpmanager)" used by this client
+does not allow using the API interface from other sites, as it does not set the Header
+[Access-Control-Allow-Origin](https://developer.mozilla.org/de/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Origin).
+Therefore it is not possible to host this WebApp somewhere on the internet and access every NextCloud intance.
+The webclient can only connect to the Nextcloud API if it is hosted on the very same domain.
+
+Consequently, you can use this client on every mobile device by just uploading the "src"-folder
+as a subdirectory in your Nextcloud instance (it must only use the same domain as your NextCloud instance).
+You can then open the client with your mobile device with the URL such as e.g. https://my-next.cloud/otp_client
+and bookmark the client to your devices homescreen. It will automatically be used as offline capable app by your device
+and behaves exactly if it was an app installed from the AppStore of PlayStore.
+
+### Development
 
 You need to have [npm](https://docs.npmjs.com/) installed on your system. All dependencies can be loaded automatically using the command
 
@@ -20,6 +43,13 @@ Maybe you need to install `flatpak-builder` so that the flatpak-file can be buil
 For building the Windows executable on a linux machine, mono and wine must be installed.
 
 ## version history
+
+### 1.1.0
+
+- included favicon and splash screens for HTML5 Webapp
+- minimize and close to system tray
+- option to wipe all data at once
+- improved README
 
 ### 1.0.9
 - bugfix packing bootstrap

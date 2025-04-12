@@ -55,17 +55,29 @@ const CONFIG = {
      */
     store: function(sender) {
         console.log('CONFIG.store(sender)', sender);
-        $(sender).css('color', 'orange');
+        OTPUI.highlight(sender, 'highlight-working', 100);
         let SELF = this;
-        Object.entries(this.data).forEach(function(a) {
+        Object.entries(SELF.data).forEach(function(a) {
             let k = a[0];
             window.localStorage.setItem(k, JSON.stringify(SELF.data[k]));
         });
-        setTimeout(function() {
-            $(sender).css('color', 'unset');
-        }, 500);
+        OTPUI.highlight(sender, 'highlight-success', 1000);
         if (typeof sender !== 'undefined') {
-            CONNECTOR.load_iv();
+            CONNECTOR.load_accounts();
         }
+    },
+    /**
+     * Wipe all data.
+     * @param {DOMElement} sender the DOMElement that initiated the wipe
+     */
+    wipe: function(sender) {
+        let SELF = this;
+        Object.entries(SELF.data).forEach(function(a) {
+            let k = a[0];
+            SELF.set(k, '');
+            $('#config_' + k).val(SELF.data[k]);
+        });
+        SELF.set('accounts', []);
+        SELF.store(sender);
     }
 }

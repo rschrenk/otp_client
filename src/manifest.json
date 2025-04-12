@@ -5,19 +5,21 @@
     {
       "src": "/pix/icon-192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "maskable"
     },
     {
       "src": "/pix/icon-512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "id": "/?source=pwa",
   "start_url": "/?source=pwa",
-  "background_color": "#3367D6",
+  "background_color": "#ffffff",
   "display": "standalone",
   "scope": "/",
-  "theme_color": "#3367D6",
+  "theme_color": "#ffffff",
   "description": "An OTP Client for a Nextcloud instance using the OTP Manager plugin"
 }

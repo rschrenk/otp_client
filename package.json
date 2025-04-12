@@ -1,13 +1,13 @@
 {
   "name": "otp_client",
   "productName": "otp_client",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "OTP Client that uses Nextcloud with installed OTPManager plugin",
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make && ./distribute.sh",
+    "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },

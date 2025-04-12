@@ -17,7 +17,7 @@ const OTPUI = {
      */
     highlight: function(obj, classes, timeout) {
         $(obj).addClass(classes);
-        setTimeout(function() { $(obj).removeClass(classes)}, timeout);
+        setTimeout(function() { $(obj).removeClass(classes); }, timeout);
     },
     print_accounts: function(accounts) {
         let container = $('#accounts').empty();
