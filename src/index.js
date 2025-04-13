@@ -9,12 +9,12 @@ if (require('electron-squirrel-startup')) {
 createWindow = function(){
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    height: 700,
     icon: '/pix/icon-512',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+    width: 500,
   });
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
@@ -30,6 +30,10 @@ createWindow = function(){
   mainWindow.on("minimize", (event) => {
     mainWindow.hide();
   });
+  mainWindow.setAlwaysOnTop(true, "normal");
+  mainWindow.setClosable(false);
+  mainWindow.setFullScreenable(false);
+  mainWindow.setResizable(false);
 };
 
 // This method will be called when Electron has finished

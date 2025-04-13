@@ -2,6 +2,22 @@
 
 This is a client written in Electron to be used with a Nextcloud instance and the plugin [OTP-Manager](https://apps.nextcloud.com/apps/otpmanager).
 
+It consists of a configuration page, where you can place the login credentails of the Nextcloud instance as well as
+the custom password for the OTPManager Plugin, and an account page, that lists all
+accounts and calculates the valid OTP.
+
+![Systray](screenshots/systray.png "SystemTray")
+
+> The system tray allowing to close and open. The window will always minimize/close to the system tray.
+
+![Configuration](screenshots/configuration.png "Configuration")
+
+> The configuration
+
+![Accounts](screenshots/accounts.png "Accounts")
+
+> The accounts page
+
 ## Usage
 
 ### Installation on Desktop
@@ -43,6 +59,11 @@ Maybe you need to install `flatpak-builder` so that the flatpak-file can be buil
 For building the Windows executable on a linux machine, mono and wine must be installed.
 
 ## version history
+
+### 1.1.1
+
+- sort accounts ascending by issuer
+- added screenshots to readme
 
 ### 1.1.0
 

@@ -20,6 +20,13 @@ const CONNECTOR = {
                 headers: headers
             }).done(function(data) {
                 if (typeof data.accounts !== 'undefined') {
+                    data.accounts.sort((a, b) => {
+                        if (a.issuer < b.issuer)
+                            return -1;
+                        if (a.issuer > b.issuer)
+                            return 1;
+                        return 0;
+                    });
                     CONFIG.set('accounts', data.accounts);
                     CONFIG.store();
                     CONNECTOR.getOtpFromAccounts();
