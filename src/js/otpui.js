@@ -22,7 +22,6 @@ const OTPUI = {
     print_accounts: function(accounts) {
         let container = $('#accounts').empty();
         let group = $('<div>').addClass('list-group');
-        let usessystray =
         accounts.forEach(function(account, index) {
             // Update app-pane
             let a = $('<a>')
@@ -37,7 +36,6 @@ const OTPUI = {
             item.append($('<small>').addClass('otpcode').html(account.currentotp));
             a.append(item);
             group.append(a);
-            // update systray
         });
         container.append(group);
     },

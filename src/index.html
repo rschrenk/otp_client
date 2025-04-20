@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html manifest="manifest.appcache">
+<html manifest="appcache.manifest.php">
   <head>
     <title>OTP Client</title>
     <meta charset="UTF-8" />
@@ -76,6 +76,10 @@
         // Re-generate OTP-codes based on accounts period and reload all accounts after some time automatically
         setInterval(function() { CONNECTOR.reload_counter(); }, 1000);
       }
+      function updateSite(event) {
+        window.applicationCache.swapCache();
+      }
+      window.applicationCache.addEventListener('updateready', updateSite, false);
     </script>
     <style>
       [role=page] { margin: 5px; }

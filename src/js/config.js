@@ -79,5 +79,6 @@ const CONFIG = {
         });
         SELF.set('accounts', []);
         SELF.store(sender);
+        $('#accounts').empty();
     }
 }

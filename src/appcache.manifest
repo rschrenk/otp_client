@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2025041300
+# 2025042005
 
 CACHE:
 # Core Files
@@ -68,9 +68,6 @@ CACHE:
 /pix/splash_screens/iPhone_16_Pro_Max_landscape.png
 /pix/splash_screens/iPhone_16_Pro_Max_portrait.png
 /pix/splash_screens/iPhone_16_Pro_portrait.png
-
-NETWORK:
-*
 
 FALLBACK:
 / /offline.html

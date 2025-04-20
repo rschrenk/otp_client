@@ -60,6 +60,11 @@ For building the Windows executable on a linux machine, mono and wine must be in
 
 ## version history
 
+### 1.1.2
+
+- appcache.manifest sends correct headers required by iOS using PHP
+- wiping configuration clears accounts list
+
 ### 1.1.1
 
 - sort accounts ascending by issuer
